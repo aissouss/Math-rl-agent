@@ -1,14 +1,13 @@
-from src.train import train
-from src.test import test_agent
-from src.eda import eda
+def test_agent(model, n=10):
+    env = MathEnv()
+    for _ in range(n):
+        s = env.reset()
+        x, y = s
+        correct = int(x + y)
 
-if __name__ == "__main__":
-    # Entraînement
-    qnet, rewards, df = train(300)
+        with torch.no_grad():
+            pred = model(torch.tensor(s, dtype=torch.float32)).argmax().item()
 
-    # Test après entraînement
-    test_agent(qnet, 10)
+        print(f"{x} + {y} = ?  → Agent : {pred} | Correct : {correct}")
 
-    # Analyse EDA (plots + stats)
-    eda(df)
 
