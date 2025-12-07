@@ -1,13 +1,16 @@
-def test_agent(model, n=10):
-    env = MathEnv()
-    for _ in range(n):
-        s = env.reset()
-        x, y = s
-        correct = int(x + y)
+from src.train import train
+from src.test import test_agent
+from src.eda import eda
 
-        with torch.no_grad():
-            pred = model(torch.tensor(s, dtype=torch.float32)).argmax().item()
+if __name__ == "__main__":
+    # 1 — Entraînement
+    qnet, rewards, df_transitions = train(300)
 
-        print(f"{x} + {y} = ?  → Agent : {pred} | Correct : {correct}")
+    # 2 — Test de l'agent après entraînement
+    test_agent(qnet, 10)
+
+    # 3 — Analyse EDA complète (plots + stats)
+    eda(df_transitions, rewards)
+
 
 
