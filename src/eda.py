@@ -10,7 +10,7 @@ def eda(df):
     plt.grid(False)
     plt.show()
 
-    # Reward moyen glissant
+    # Reward glissant
     df["rolling_reward"] = df["reward"].rolling(window=40).mean()
 
     plt.figure(figsize=(8,4))
@@ -22,7 +22,6 @@ def eda(df):
     plt.show()
 
     # Taux de réponses correctes
-    taux = (df["reward"] > 0).mean()
-    print("Taux de réponses positives :", taux)
+    print("Taux de réponses positives :", (df["reward"] > 0).mean())
 
 
