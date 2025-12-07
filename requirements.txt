@@ -1,1 +1,4 @@
-fqaewrfqwd
+numpy
+torch
+matplotlib
+pandas
